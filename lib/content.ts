@@ -7,11 +7,21 @@
 
 export const HERO = {
   appName: "Aliiibi",
-  taglineWords: ["Le", "jeu", "qui", "détruit", "des", "amitiés.", "Mais", "en", "rythme."],
+  taglineWords: [
+    "Le",
+    "jeu",
+    "qui",
+    "détruit",
+    "des",
+    "amitiés.",
+    "Mais",
+    "en",
+    "rythme.",
+  ],
   taglineAccentWord: "détruit", // index 3 in Swift, bold+accent color
   ctaLabel: "Télécharger sur l'App Store",
   ctaUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
-}
+};
 
 export const CONCEPT = {
   heading: "Le concept",
@@ -34,7 +44,7 @@ export const CONCEPT = {
       text: "Personne ne te grille → tu marques des points. Simple. Cruel. Parfait.",
     },
   ],
-}
+};
 
 // Source: HowToPlayView.swift — slides content
 export const HOW_TO_PLAY = {
@@ -65,7 +75,7 @@ export const HOW_TO_PLAY = {
       text: "Révélation. Scores. Titres. Certains font rêver. Certains font honte. Tous sont mérités.",
     },
   ],
-}
+};
 
 // Source: PlayerRoundCard.swift — RoundTitle enum (emoji, label, color, sarcasm)
 export const TITLES = {
@@ -106,7 +116,7 @@ export const TITLES = {
         "Pendant que les autres hésitaient, lui écoutait vraiment. Ça change tout.",
     },
   ],
-}
+};
 
 // Source: HowToPlayRolesView.swift (slide index 3) + PremiumPaywallView.swift
 export const MODE_INFILTRE = {
@@ -123,17 +133,17 @@ export const MODE_INFILTRE = {
     { icon: "📋", text: "Historique des parties" },
     { icon: "👑", text: "Soutenir le développement" },
   ],
-  price: "3,99€",
+  price: "4,99€",
   priceNote: "Achat unique · À vie",
   cta: "Télécharger gratuitement",
   ctaUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
-}
+};
 
 export const FOOTER = {
   signature: "Fait avec suspicion. © ALIIIBI",
   links: [
     { label: "Politique de confidentialité", href: "/privacy" },
-    { label: "Support", href: "mailto:support@aliiibi.app" },
+    //{ label: "Support", href: "mailto:support@aliiibi.app" },
   ],
   appStoreUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
-}
+};

@@ -66,7 +66,7 @@ function IPhoneMockup() {
             className="text-2xl font-black text-center leading-none"
             style={{ color: "#FF9CC0" }}
           >
-            Sophie
+            Dina
           </p>
 
           {/* Title badge — L'INSAISISSABLE */}
@@ -94,7 +94,12 @@ function IPhoneMockup() {
           {/* CTA button skeleton */}
           <div
             className="w-full rounded-2xl py-3 mt-2 text-center"
-            style={{ background: "#9D9FE5", fontSize: 11, fontWeight: 700, color: "#111" }}
+            style={{
+              background: "#9D9FE5",
+              fontSize: 11,
+              fontWeight: 700,
+              color: "#111",
+            }}
           >
             Manche suivante
           </div>
@@ -190,9 +195,7 @@ export default function Hero() {
       {/* Text block */}
       <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-xl gap-6">
         {/* App name */}
-        <h1
-          className="neon-title text-7xl sm:text-8xl lg:text-9xl font-black tracking-tight leading-none text-white select-none"
-        >
+        <h1 className="neon-title text-7xl sm:text-8xl lg:text-9xl font-black tracking-tight leading-none text-white select-none">
           {HERO.appName}
         </h1>
 
