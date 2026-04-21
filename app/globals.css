@@ -152,43 +152,6 @@ body {
   animation: role-float 5s ease-in-out infinite;
 }
 
-/* Running border light — clockwise, transform-only (no @property) */
-@keyframes border-run {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* Wrapper clips the oversized rotating gradient to expose only the 1px border strip */
-.card-glow-border {
-  position: relative;
-  border-radius: 1.5rem;
-  padding: 1px;
-  overflow: hidden;
-}
-
-/* Square rotating gradient — centered on the card, large enough to cover all edges */
-.card-glow-border::before {
-  content: "";
-  position: absolute;
-  /* 2× the largest dimension ensures full coverage at any rotation */
-  width: 300%;
-  aspect-ratio: 1 / 1;
-  top: 50%;
-  left: 50%;
-  margin-top: -150%;
-  margin-left: -150%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 70%,
-    rgba(255,226,112,.5)  80%,
-    rgba(255,255,220,1)   88%,
-    rgba(255,226,112,.5)  96%,
-    transparent 100%
-  );
-  animation: border-run 5s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ============================================================
    Title card expandable text
