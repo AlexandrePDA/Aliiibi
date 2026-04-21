@@ -16,15 +16,10 @@ export default function HowToPlay() {
       <div className="mx-auto max-w-4xl">
         {/* Heading */}
         <ScrollReveal className="text-center mb-14">
-          <p
-            className="text-xs font-black tracking-widest uppercase mb-4"
-            style={{ color: "#9D9FE5" }}
-          >
-            Mode d&apos;emploi
-          </p>
           <h2
             id="howtoplay-heading"
-            className="text-3xl sm:text-4xl font-black text-white"
+            className="text-3xl sm:text-4xl font-black"
+            style={{ color: "#9D9FE5" }}
           >
             {HOW_TO_PLAY.heading}
           </h2>
@@ -74,7 +69,7 @@ export default function HowToPlay() {
                     </div>
                     <p
                       className="text-sm sm:text-base leading-relaxed"
-                      style={{ color: "#C4C4C9" }}
+                      style={{ color: "#C4C4C9", whiteSpace: "pre-line" }}
                     >
                       {step.text}
                     </p>

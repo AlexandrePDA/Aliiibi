@@ -96,21 +96,16 @@ export default function Titles() {
       <div className="mx-auto max-w-4xl">
         {/* Heading */}
         <ScrollReveal className="text-center mb-14">
-          <p
-            className="text-xs font-black tracking-widest uppercase mb-4"
-            style={{ color: "#9D9FE5" }}
-          >
-            Système de titres
-          </p>
           <h2
             id="titles-heading"
-            className="text-3xl sm:text-4xl font-black text-white mb-4"
+            className="text-3xl sm:text-4xl font-black mb-4"
+            style={{ color: "#9D9FE5" }}
           >
             {TITLES.heading}
           </h2>
           <p
             className="text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
-            style={{ color: "#8E8E93" }}
+            style={{ color: "#8E8E93", whiteSpace: "pre-line" }}
           >
             {TITLES.subtitle}
           </p>

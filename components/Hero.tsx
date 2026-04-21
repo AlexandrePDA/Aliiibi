@@ -73,14 +73,14 @@ function IPhoneMockup() {
           <div
             className="badge-pulse flex items-center gap-1.5 rounded-full px-3 py-1.5"
             style={{
-              background: "rgba(123,196,123,.12)",
-              border: "1px solid rgba(123,196,123,.4)",
+              background: "rgba(157,159,229,.12)",
+              border: "1px solid rgba(157,159,229,.4)",
             }}
           >
-            <span className="text-xs">🟢</span>
+            <span className="text-xs">✨</span>
             <span
               className="text-xs font-black tracking-wider"
-              style={{ color: "#7BC47B" }}
+              style={{ color: "#9D9FE5" }}
             >
               L'INSAISISSABLE
             </span>
@@ -88,7 +88,7 @@ function IPhoneMockup() {
 
           {/* Delta */}
           <p className="text-sm font-black" style={{ color: "#34C759" }}>
-            +30 pts ↑
+            +20 pts ↑
           </p>
 
           {/* CTA button skeleton */}

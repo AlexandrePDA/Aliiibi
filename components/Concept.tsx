@@ -11,16 +11,12 @@ export default function Concept() {
       <div className="mx-auto max-w-4xl">
         {/* Heading */}
         <ScrollReveal className="text-center mb-14">
-          <p
-            className="text-xs font-black tracking-widest uppercase mb-4"
-            style={{ color: "#9D9FE5" }}
-          >
-            {CONCEPT.heading}
-          </p>
           <h2
-            className="text-3xl sm:text-4xl font-black text-white leading-tight max-w-2xl mx-auto"
+            className="text-3xl sm:text-4xl font-black leading-tight max-w-2xl mx-auto text-white"
           >
-            {CONCEPT.pitch}
+            Un{" "}
+            <span style={{ color: "#9D9FE5" }}>blind-test musical</span>
+            {" "}où chaque morceau est une preuve. Et chaque joueur, un suspect.
           </h2>
         </ScrollReveal>
 

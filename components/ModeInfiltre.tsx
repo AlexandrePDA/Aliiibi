@@ -1,8 +1,6 @@
-import AppStoreBadge from "./AppStoreBadge";
+import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import { MODE_INFILTRE } from "@/lib/content";
-
-// Source: HowToPlayRolesView.swift slide 4 (body + note) + PremiumPaywallView.swift
 
 export default function ModeInfiltre() {
   return (
@@ -11,15 +9,17 @@ export default function ModeInfiltre() {
       className="px-5 py-20 sm:py-28"
       aria-labelledby="infiltre-heading"
     >
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <ScrollReveal>
-          {/* Section card with gold accent border */}
+          {/* Outer wrapper carries the running border — must NOT have overflow-hidden */}
+          <div className="card-glow-border rounded-3xl">
+          {/* Inner card clips decorative blobs */}
           <div
             className="rounded-3xl p-8 sm:p-12 relative overflow-hidden"
             style={{
               background:
                 "linear-gradient(135deg, rgba(255,226,112,.05) 0%, rgba(28,28,30,1) 60%)",
-              border: "1px solid rgba(255,226,112,.2)",
+              border: "1px solid rgba(255,226,112,.15)",
               boxShadow: "0 0 60px rgba(255,226,112,.06)",
             }}
           >
@@ -34,9 +34,9 @@ export default function ModeInfiltre() {
               }}
             />
 
-            <div className="relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
-              {/* Left column — content */}
-              <div className="flex-1">
+            <div className="relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+              {/* Left column — all content */}
+              <div className="flex-1 min-w-0">
                 {/* Badge premium */}
                 <div className="flex items-center gap-2 mb-6">
                   <span className="text-3xl">{MODE_INFILTRE.emoji}</span>
@@ -74,9 +74,9 @@ export default function ModeInfiltre() {
                   {MODE_INFILTRE.body}
                 </p>
 
-                {/* Highlighted note (mirrors the note block in the SwiftUI slide) */}
+                {/* Note block */}
                 <div
-                  className="flex gap-3 p-4 rounded-2xl mb-8"
+                  className="flex gap-3 p-4 rounded-2xl mb-6"
                   style={{
                     background: "rgba(255,226,112,.06)",
                     border: "1px solid rgba(255,226,112,.15)",
@@ -90,6 +90,36 @@ export default function ModeInfiltre() {
                     {MODE_INFILTRE.note}
                   </p>
                 </div>
+
+                {/* Price */}
+                <div className="flex items-baseline gap-3 mb-6">
+                  <p className="text-3xl font-black" style={{ color: "#FFE270" }}>
+                    {MODE_INFILTRE.price}
+                  </p>
+                  <p className="text-sm" style={{ color: "#C4C4C9" }}>
+                    {MODE_INFILTRE.priceNote}
+                  </p>
+                </div>
+
+                {/* Feature list */}
+                <ul className="flex flex-col gap-2.5 mb-8" role="list">
+                  {MODE_INFILTRE.features.map((f) => (
+                    <li
+                      key={f.text}
+                      className="flex items-center gap-3 text-sm"
+                      style={{ color: "#C4C4C9" }}
+                    >
+                      <span
+                        className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-base"
+                        style={{ background: "rgba(255,226,112,.1)" }}
+                        aria-hidden="true"
+                      >
+                        {f.icon}
+                      </span>
+                      <span>{f.text}</span>
+                    </li>
+                  ))}
+                </ul>
 
                 {/* CTA */}
                 <a
@@ -108,51 +138,60 @@ export default function ModeInfiltre() {
                 </a>
               </div>
 
-              {/* Right column — features + price */}
-              <div className="w-full lg:w-72 shrink-0">
-                {/* Price card */}
+              {/* Right column — floating mockup */}
+              <div className="hidden sm:flex shrink-0 items-center justify-center lg:w-64">
                 <div
-                  className="rounded-2xl p-5 mb-6 text-center"
-                  style={{
-                    background: "rgba(255,226,112,.07)",
-                    border: "1px solid rgba(255,226,112,.18)",
-                  }}
+                  className="role-float relative"
+                  style={{ width: 220, height: 440 }}
+                  aria-hidden="true"
                 >
-                  <p
-                    className="text-4xl font-black mb-1"
-                    style={{ color: "#FFE270" }}
+                  {/* Phone shell */}
+                  <div
+                    className="relative w-full h-full rounded-[40px] overflow-hidden"
+                    style={{
+                      background: "#0A0A0A",
+                      border: "2px solid #2C2C2E",
+                      boxShadow:
+                        "0 40px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04), inset 0 0 0 2px rgba(255,255,255,.03)",
+                    }}
                   >
-                    {MODE_INFILTRE.price}
-                  </p>
-                  <p className="text-sm" style={{ color: "#C4C4C9" }}>
-                    {MODE_INFILTRE.priceNote}
-                  </p>
-                </div>
+                    {/* Dynamic Island */}
+                    <div
+                      className="absolute top-3 left-1/2 -translate-x-1/2 z-10 rounded-full"
+                      style={{ width: 72, height: 22, background: "#000" }}
+                    />
 
-                {/* Feature list */}
-                <ul className="flex flex-col gap-3" role="list">
-                  {MODE_INFILTRE.features.map((f) => (
-                    <li
-                      key={f.text}
-                      className="flex items-start gap-3 text-sm"
-                      style={{ color: "#C4C4C9" }}
+                    {/* Screen — role.png shifted up to hide status bar */}
+                    <div
+                      className="absolute inset-0 overflow-hidden rounded-[38px]"
                     >
-                      <span
-                        className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-base"
+                      <Image
+                        src="/role.png"
+                        alt="Écran rôle secret dans le mode Infiltré"
+                        fill
                         style={{
-                          background: "rgba(255,226,112,.1)",
+                          objectFit: "cover",
+                          objectPosition: "center 70%",
                         }}
-                        aria-hidden="true"
-                      >
-                        {f.icon}
-                      </span>
-                      <span className="leading-relaxed pt-0.5">{f.text}</span>
-                    </li>
-                  ))}
-                </ul>
+                        sizes="220px"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Reflection glow */}
+                  <div
+                    className="absolute bottom-[-30px] left-1/2 -translate-x-1/2 rounded-full blur-2xl"
+                    style={{
+                      width: 140,
+                      height: 30,
+                      background: "rgba(255,226,112,.2)",
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
+          </div>{/* /card-glow-border */}
         </ScrollReveal>
       </div>
     </section>

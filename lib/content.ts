@@ -26,7 +26,7 @@ export const HERO = {
 export const CONCEPT = {
   heading: "Le concept",
   pitch:
-    "Un blind-test musical où chaque morceau est une preuve — et chaque joueur, un suspect.",
+    "Un blind-test musical où chaque morceau est une preuve. Et chaque joueur, un suspect.",
   pillars: [
     {
       icon: "🎵",
@@ -54,25 +54,25 @@ export const HOW_TO_PLAY = {
       num: "01",
       emoji: "🤫",
       title: "Choisir en secret",
-      text: "Chaque joueur sélectionne ses musiques, seul avec son téléphone. Personne ne voit.",
+      text: "Chaque joueur sélectionne ses musiques. Personne ne voit.",
     },
     {
       num: "02",
       emoji: "🎧",
       title: "La playlist démarre",
-      text: "Les morceaux passent dans l'ordre. L'ambiance monte. Les regards se croisent.",
+      text: "Les morceaux défilent. L'ambiance monte. Les regards se croisent.",
     },
     {
       num: "03",
       emoji: "🔍",
       title: "Écoute. Analyse. Accuse.",
-      text: "À chaque morceau, vote pour le joueur que tu suspectes. Ou bluffe. On ne juge pas.",
+      text: "À chaque morceau, vote pour le joueur que tu suspectes. Ou ment.",
     },
     {
       num: "04",
       emoji: "🎭",
       title: "Les masques tombent",
-      text: "Révélation. Scores. Titres. Certains font rêver. Certains font honte. Tous sont mérités.",
+      text: "Révélation. Scores. Titres.\nSans oublier, des bonus de fin pour les meilleurs enquêteurs… et les bluffeurs imperturbables.",
     },
   ],
 };
@@ -81,7 +81,7 @@ export const HOW_TO_PLAY = {
 export const TITLES = {
   heading: "Les titres",
   subtitle:
-    "À chaque révélation, tu hérites d'un titre. Certains font rêver. Certains font honte. Tous sont mérités.",
+    "À chaque révélation, tu hérites d'un titre. Certains font rêver.\nCertains font honte. Tous sont mérités.",
   cards: [
     {
       emoji: "☠️",
@@ -92,10 +92,10 @@ export const TITLES = {
         "Tu pensais être imprévisible. Tu avais l'originalité d'un générique de supermarché. Chaque suspect du groupe t'a désigné sans hésiter. C'est beau, dans le genre catastrophique.",
     },
     {
-      emoji: "🟢",
+      emoji: "✨",
       title: "L'INSAISISSABLE",
-      color: "#7BC47B",
-      points: "+30 pts",
+      color: "#9D9FE5",
+      points: "+20 pts",
       sarcasm:
         "Aucune trace. Aucun indice. Aucune pitié. Tu as semé tout le monde et tu le sais très bien.",
     },
@@ -108,7 +108,7 @@ export const TITLES = {
         "Là où tout le monde a raté, il a trouvé. Seul contre tous. C'est ça, le vrai flair.",
     },
     {
-      emoji: "👁️",
+      emoji: "👂",
       title: "L'OREILLE ABSOLUE",
       color: "#9D9FE5",
       points: "+10 pts",
@@ -124,12 +124,12 @@ export const MODE_INFILTRE = {
   emoji: "🕵️",
   heading: "Mode Infiltré",
   tagline: "Le mode Enquête change tout.",
-  body: "Avant même que la musique commence, certains joueurs reçoivent une mission secrète. Un rôle. Des règles connues d'eux seuls.",
-  note: "Certains sont là pour bluffer. D'autres pour piéger. D'autres encore… pour souffrir.\nTu sauras lequel tu es. Les autres, jamais — jusqu'à la fin.",
+  body: "Ajoutez une couche de stratégie et de trahison avec des rôles secrets attribués en début de partie.",
+  note: "Certains sont là pour bluffer. D'autres pour piéger. D'autres encore… pour souffrir.",
   features: [
     { icon: "👥", text: "Jusqu'à 8 joueurs (vs 4 en gratuit)" },
     { icon: "🎵", text: "Jusqu'à 6 morceaux par joueur" },
-    { icon: "🎭", text: "Mode infiltré — rôles secrets" },
+    { icon: "🎭", text: "Mode Infiltré avec rôles secrets" },
     { icon: "📋", text: "Historique des parties" },
     { icon: "👑", text: "Soutenir le développement" },
   ],
