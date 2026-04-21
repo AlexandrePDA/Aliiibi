@@ -11,16 +11,16 @@ export default function ModeInfiltre() {
     >
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
-          {/* Outer wrapper carries the running border — must NOT have overflow-hidden */}
-          <div className="card-glow-border rounded-3xl">
-          {/* Inner card clips decorative blobs */}
+          {/* card-glow-border: overflow-hidden + padding:1px — clips the rotating ::before gradient */}
+          <div className="card-glow-border">
+          {/* Inner card sits above the rotating gradient (z-index: 1) */}
           <div
-            className="rounded-3xl p-8 sm:p-12 relative overflow-hidden"
+            className="rounded-[calc(1.5rem-1px)] p-8 sm:p-12 relative overflow-hidden"
             style={{
               background:
                 "linear-gradient(135deg, rgba(255,226,112,.05) 0%, rgba(28,28,30,1) 60%)",
-              border: "1px solid rgba(255,226,112,.15)",
               boxShadow: "0 0 60px rgba(255,226,112,.06)",
+              zIndex: 1,
             }}
           >
             {/* Radial glow decoration */}
@@ -190,7 +190,7 @@ export default function ModeInfiltre() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>{/* /inner card */}
           </div>{/* /card-glow-border */}
         </ScrollReveal>
       </div>

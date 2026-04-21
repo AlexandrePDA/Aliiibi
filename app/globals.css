@@ -152,64 +152,42 @@ body {
   animation: role-float 5s ease-in-out infinite;
 }
 
-/* Running border light — clockwise conic sweep */
-@property --border-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
+/* Running border light — clockwise, transform-only (no @property) */
 @keyframes border-run {
-  to { --border-angle: 360deg; }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* Outer wrapper: no overflow-hidden so pseudo-elements aren't clipped */
+/* Wrapper clips the oversized rotating gradient to expose only the 1px border strip */
 .card-glow-border {
   position: relative;
-  --border-angle: 0deg;
-  animation: border-run 5s linear infinite;
+  border-radius: 1.5rem;
+  padding: 1px;
+  overflow: hidden;
 }
 
-/* Thin bright border beam */
+/* Square rotating gradient — centered on the card, large enough to cover all edges */
 .card-glow-border::before {
   content: "";
   position: absolute;
-  inset: -1px;
-  border-radius: 1.5rem;
-  padding: 1px;
+  /* 2× the largest dimension ensures full coverage at any rotation */
+  width: 300%;
+  aspect-ratio: 1 / 1;
+  top: 50%;
+  left: 50%;
+  margin-top: -150%;
+  margin-left: -150%;
   background: conic-gradient(
-    from var(--border-angle),
+    from 0deg,
     transparent 70%,
-    rgba(255,226,112,.4)  80%,
+    rgba(255,226,112,.5)  80%,
     rgba(255,255,220,1)   88%,
-    rgba(255,226,112,.4)  96%,
+    rgba(255,226,112,.5)  96%,
     transparent 100%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  animation: border-run 5s linear infinite;
   pointer-events: none;
-  z-index: 2;
-}
-
-/* Soft outer glow that trails the beam */
-.card-glow-border::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 1.6rem;
-  background: conic-gradient(
-    from var(--border-angle),
-    transparent 70%,
-    rgba(255,226,112,.0)  78%,
-    rgba(255,226,112,.55) 88%,
-    rgba(255,226,112,.0)  98%,
-    transparent 100%
-  );
-  filter: blur(8px);
-  pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 /* ============================================================
