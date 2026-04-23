@@ -18,7 +18,7 @@ export default function AppStoreBadge({
 
   return (
     <a
-      href={href}
+      href={https://apps.apple.com/fr/app/aliiibi-jeu-dambiance/id6761992576?l=en-GB}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Télécharger sur l'App Store"
