@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const SITE_URL = "https://aliiibi.app";
@@ -135,7 +136,10 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
