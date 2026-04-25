@@ -156,6 +156,51 @@ function renderBlock(block: Block, i: number) {
           </table>
         </div>
       );
+    case "cards":
+      return (
+        <div key={i} className="flex flex-col gap-4 mb-6">
+          {block.items.map((card, j) => (
+            <div
+              key={j}
+              className="rounded-xl p-4"
+              style={{
+                background: "rgba(255,255,255,.03)",
+                border: `1px solid ${card.color}30`,
+                borderLeft: `3px solid ${card.color}`,
+              }}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{card.emoji}</span>
+                  <span
+                    className="text-sm font-black tracking-widest"
+                    style={{ color: card.color }}
+                  >
+                    {card.title}
+                  </span>
+                </div>
+                {card.points && (
+                  <span
+                    className="text-xs font-bold px-2 py-0.5 rounded-full"
+                    style={{
+                      background: `${card.color}20`,
+                      color: card.color,
+                    }}
+                  >
+                    {card.points}
+                  </span>
+                )}
+              </div>
+              <p
+                className="text-sm leading-relaxed italic"
+                style={{ color: "#C4C4C9" }}
+              >
+                {card.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
   }
 }
 
