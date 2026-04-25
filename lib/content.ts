@@ -142,6 +142,7 @@ export const MODE_INFILTRE = {
 export const FOOTER = {
   signature: "Fait avec suspicion. © ALIIIBI",
   links: [
+    { label: "Blog", href: "/blog" },
     { label: "Politique de confidentialité", href: "/privacy" },
     //{ label: "Support", href: "mailto:support@aliiibi.app" },
   ],
