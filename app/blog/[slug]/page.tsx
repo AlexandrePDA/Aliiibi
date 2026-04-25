@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getArticle, getAllArticles, type Block } from "@/lib/articles";
+import {
+  getArticle,
+  getAllArticles,
+  type Block,
+  type InlineContent,
+} from "@/lib/articles";
 import Footer from "@/components/Footer";
 
 export async function generateStaticParams() {
@@ -20,9 +25,7 @@ export async function generateMetadata({
     title: article.metaTitle,
     description: article.metaDescription,
     keywords: article.keywords,
-    alternates: {
-      canonical: `https://aliiibi.app/blog/${slug}`,
-    },
+    alternates: { canonical: `https://aliiibi.app/blog/${slug}` },
     openGraph: {
       title: article.metaTitle,
       description: article.metaDescription,
@@ -31,6 +34,36 @@ export async function generateMetadata({
       url: `https://aliiibi.app/blog/${slug}`,
     },
   };
+}
+
+function renderInline(segments: InlineContent[]) {
+  return segments.map((seg, j) => {
+    if (typeof seg === "string") return <span key={j}>{seg}</span>;
+    if (seg.external) {
+      return (
+        <a
+          key={j}
+          href={seg.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 transition-opacity hover:opacity-70"
+          style={{ color: "#9D9FE5" }}
+        >
+          {seg.text}
+        </a>
+      );
+    }
+    return (
+      <Link
+        key={j}
+        href={seg.href}
+        className="underline underline-offset-2 transition-opacity hover:opacity-70"
+        style={{ color: "#9D9FE5" }}
+      >
+        {seg.text}
+      </Link>
+    );
+  });
 }
 
 function renderBlock(block: Block, i: number) {
@@ -55,6 +88,16 @@ function renderBlock(block: Block, i: number) {
           {block.text}
         </p>
       );
+    case "p-rich":
+      return (
+        <p
+          key={i}
+          className="text-sm sm:text-base leading-relaxed text-justify mb-4"
+          style={{ color: "#C4C4C9" }}
+        >
+          {renderInline(block.segments)}
+        </p>
+      );
     case "ul":
       return (
         <ul key={i} className="flex flex-col gap-3 mb-6">
@@ -75,10 +118,7 @@ function renderBlock(block: Block, i: number) {
     case "table":
       return (
         <div key={i} className="overflow-x-auto mb-6">
-          <table
-            className="w-full text-sm border-collapse"
-            style={{ color: "#C4C4C9" }}
-          >
+          <table className="w-full text-sm border-collapse" style={{ color: "#C4C4C9" }}>
             <thead>
               <tr>
                 {block.headers.map((h, j) => (
@@ -119,6 +159,16 @@ function renderBlock(block: Block, i: number) {
   }
 }
 
+const TAG_COLORS: Record<string, string> = {
+  Guide: "#72DDD4",
+  Stratégie: "#9D9FE5",
+  Comparatif: "#FFAB76",
+  Référence: "#FF9CC0",
+  Présentation: "#7BC47B",
+  "Mode Infiltré": "#A89EFF",
+  Culture: "#FFD700",
+};
+
 export default async function ArticlePage({
   params,
 }: {
@@ -127,6 +177,10 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
+
+  const relatedArticles = article.related
+    .map((s) => getArticle(s))
+    .filter(Boolean) as NonNullable<ReturnType<typeof getArticle>>[];
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -144,8 +198,16 @@ export default async function ArticlePage({
     headline: article.title,
     description: article.metaDescription,
     datePublished: article.date,
-    author: { "@type": "Organization", name: "ALIIIBI", url: "https://aliiibi.app" },
-    publisher: { "@type": "Organization", name: "ALIIIBI", url: "https://aliiibi.app" },
+    author: {
+      "@type": "Organization",
+      name: "ALIIIBI",
+      url: "https://aliiibi.app",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ALIIIBI",
+      url: "https://aliiibi.app",
+    },
     url: `https://aliiibi.app/blog/${article.slug}`,
   };
 
@@ -229,7 +291,57 @@ export default async function ArticlePage({
             {article.blocks.map((block, i) => renderBlock(block, i))}
           </div>
 
-          {/* FAQ section */}
+          {/* Voir aussi */}
+          {relatedArticles.length > 0 && (
+            <div
+              className="mt-12 pt-10"
+              style={{ borderTop: "1px solid rgba(255,255,255,.08)" }}
+            >
+              <p
+                className="text-xs font-bold uppercase tracking-widest mb-5"
+                style={{ color: "#8E8E93" }}
+              >
+                Voir aussi
+              </p>
+              <div className="flex flex-col gap-3">
+                {relatedArticles.map((rel) => {
+                  const tagColor = TAG_COLORS[rel.tag] ?? "#9D9FE5";
+                  return (
+                    <Link
+                      key={rel.slug}
+                      href={`/blog/${rel.slug}`}
+                      className="group flex items-center justify-between gap-4 py-3 transition-opacity hover:opacity-80"
+                      style={{ borderBottom: "1px solid rgba(255,255,255,.05)" }}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span
+                          className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0"
+                          style={{
+                            background: `${tagColor}18`,
+                            color: tagColor,
+                          }}
+                        >
+                          {rel.tag}
+                        </span>
+                        <span className="text-sm font-medium text-white truncate">
+                          {rel.title}
+                        </span>
+                      </div>
+                      <span
+                        className="shrink-0 transition-transform group-hover:translate-x-1"
+                        style={{ color: "#9D9FE5" }}
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* FAQ */}
           <div
             className="mt-12 pt-10"
             style={{ borderTop: "1px solid rgba(255,255,255,.08)" }}

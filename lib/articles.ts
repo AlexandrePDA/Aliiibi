@@ -1,12 +1,17 @@
 // ============================================================
 // lib/articles.ts — All blog article content
 // GEO-optimized: answers first, chiffres, Aliiibi vocabulary,
-// FAQ at the end of each article.
+// internal + external backlinks, FAQ at the end of each article.
 // ============================================================
+
+export type InlineContent =
+  | string
+  | { text: string; href: string; external?: boolean };
 
 export type Block =
   | { type: "h2"; text: string }
   | { type: "p"; text: string }
+  | { type: "p-rich"; segments: InlineContent[] }
   | { type: "ul"; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] };
 
@@ -27,6 +32,7 @@ export interface Article {
   intro: string;
   blocks: Block[];
   faq: Faq[];
+  related: string[];
 }
 
 const articles: Article[] = [
@@ -72,8 +78,21 @@ const articles: Article[] = [
         text: "Ce que font les autres solutions",
       },
       {
-        type: "p",
-        text: "Le blind test maison demande 2h de préparation à quelqu'un qui ne joue pas vraiment — il est le DJ, l'arbitre et le bouc émissaire si les questions sont trop dures. Jackbox Party Pack propose des jeux amusants mais nécessite une TV, une console et environ 25 à 30 € par pack. Les playlists Spotify partagées ? C'est bien pendant dix minutes.",
+        type: "p-rich",
+        segments: [
+          "Le blind test maison demande 2h de préparation à quelqu'un qui ne joue pas vraiment — il est le DJ, l'arbitre et le bouc émissaire si les questions sont trop dures. ",
+          {
+            text: "Jackbox Party Pack",
+            href: "https://www.jackboxgames.com/",
+            external: true,
+          },
+          " propose des jeux amusants mais demande une TV et une console — notre ",
+          {
+            text: "comparatif complet des options de jeu musical",
+            href: "/blog/comparatif-blind-test-jackbox-aliiibi",
+          },
+          " détaille les vraies contraintes de chaque solution. Les playlists Spotify partagées ? C'est bien pendant dix minutes.",
+        ],
       },
       {
         type: "h2",
@@ -106,8 +125,21 @@ const articles: Article[] = [
         ],
       },
       {
-        type: "p",
-        text: "Une partie réunit typiquement 3 à 8 joueurs et dure de 20 à 45 minutes selon le nombre de participants. C'est le seul jeu musical où votre collection de chansons honteuses est un atout.",
+        type: "p-rich",
+        segments: [
+          "L'app utilise ",
+          {
+            text: "Apple Music",
+            href: "https://www.apple.com/fr/apple-music/",
+            external: true,
+          },
+          " pour la diffusion — un abonnement actif est nécessaire sur l'iPhone utilisé. Une partie réunit typiquement 3 à 8 joueurs et dure de 20 à 45 minutes. Pour tirer le meilleur d'Aliiibi, il est utile de connaître les ",
+          {
+            text: "7 types de joueurs qui émergent à chaque partie",
+            href: "/blog/7-types-de-joueurs-blind-test",
+          },
+          " — chacun ayant ses tells et ses angles morts.",
+        ],
       },
     ],
     faq: [
@@ -131,6 +163,11 @@ const articles: Article[] = [
         q: "Aliiibi est-il gratuit ?",
         a: "Oui, la version de base est gratuite sur l'App Store. Elle supporte jusqu'à 4 joueurs avec 4 morceaux chacun. Aliiibi+ est un achat unique à 4,99 € qui débloque jusqu'à 8 joueurs, 6 morceaux par joueur et le Mode Infiltré.",
       },
+    ],
+    related: [
+      "comparatif-blind-test-jackbox-aliiibi",
+      "7-types-de-joueurs-blind-test",
+      "glossaire-aliiibi",
     ],
   },
 
@@ -167,8 +204,15 @@ const articles: Article[] = [
         text: "Aliiibi est autant un jeu d'analyse comportementale qu'un blind test musical. Écouter les morceaux, c'est secondaire. Observer les réactions des autres joueurs pendant que la playlist tourne — leurs sourires imperceptibles, leurs regards fuyants, leur soudaine passivité — c'est là que se gagne la partie.",
       },
       {
-        type: "p",
-        text: "Ces 7 archétypes correspondent directement aux titres que l'app attribue en fin de manche. Les reconnaître en temps réel, avant la révélation, c'est l'avantage des meilleurs joueurs.",
+        type: "p-rich",
+        segments: [
+          "Ces 7 archétypes correspondent directement aux titres que l'app attribue en fin de manche — Honte Suprême, Insaisissable, Fin Limier, Oreille Absolue. Leur ",
+          {
+            text: "définition complète et leurs points respectifs",
+            href: "/blog/glossaire-aliiibi",
+          },
+          " sont détaillés dans le glossaire Aliiibi. Les reconnaître en temps réel, avant la révélation, c'est l'avantage des meilleurs joueurs.",
+        ],
       },
       {
         type: "h2",
@@ -192,11 +236,23 @@ const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Identifier rapidement le profil de chaque joueur autour de la table — dès les deux premiers titres — vous donne un avantage structurel. L'Oreille Absolue va se concentrer sur la musique : profitez-en pour l'observer à voix basse. Le Sniper va trop voter contre une même personne : retournez le groupe contre lui.",
+        text: "Identifier rapidement le profil de chaque joueur autour de la table — dès les deux premiers titres — vous donne un avantage structurel. L'Oreille Absolue va se concentrer sur la musique : profitez-en pour l'observer discrètement. Le Sniper va trop voter contre une même personne : retournez le groupe contre lui.",
       },
       {
-        type: "p",
-        text: "Dans le Mode Infiltré (disponible avec Aliiibi+), ces profils correspondent à des rôles assignés en début de partie. Le jeu de bluff devient alors un méta-jeu : vous devez deviner non seulement qui a mis ce titre, mais aussi si ce joueur joue le rôle qu'il prétend jouer.",
+        type: "p-rich",
+        segments: [
+          "Dans le ",
+          {
+            text: "Mode Infiltré",
+            href: "/blog/mode-infiltre-explique",
+          },
+          " (disponible avec Aliiibi+), ces profils correspondent à des rôles assignés en début de partie. Le jeu de bluff devient alors un méta-jeu : vous devez deviner non seulement qui a mis ce titre, mais aussi si ce joueur joue le rôle qu'il prétend jouer. Pour les ",
+          {
+            text: "techniques concrètes de bluff",
+            href: "/blog/comment-bluffer-au-blind-test",
+          },
+          ", notre guide dédié détaille les 5 méthodes les plus efficaces.",
+        ],
       },
     ],
     faq: [
@@ -216,6 +272,11 @@ const articles: Article[] = [
         q: "Peut-on faire alliance avec un autre joueur dans Aliiibi ?",
         a: "C'est une stratégie informelle possible dans toutes les versions. Le Mode Infiltré (Aliiibi+) formalise ces alliances avec des rôles dédiés comme Le Complice, avec des objectifs et des points associés.",
       },
+    ],
+    related: [
+      "comment-bluffer-au-blind-test",
+      "mode-infiltre-explique",
+      "glossaire-aliiibi",
     ],
   },
 
@@ -266,8 +327,15 @@ const articles: Article[] = [
         text: "Jackbox Party Pack : quand il faut une TV",
       },
       {
-        type: "p",
-        text: "Jackbox est excellent mais demande une configuration spécifique : une TV ou un vidéoprojecteur, une console, un PC ou une Apple TV avec Jackbox installé, et chaque joueur utilise son smartphone comme télécommande via un navigateur. En appartement avec 6 personnes, c'est faisable. En extérieur ou en voyage, c'est compliqué.",
+        type: "p-rich",
+        segments: [
+          {
+            text: "Jackbox Games",
+            href: "https://www.jackboxgames.com/",
+            external: true,
+          },
+          " est excellent mais demande une configuration spécifique : une TV ou un vidéoprojecteur, une console, un PC ou une Apple TV avec Jackbox installé, et chaque joueur utilise son smartphone comme télécommande via un navigateur. En appartement avec 6 personnes, c'est faisable. En extérieur ou en voyage, c'est compliqué.",
+        ],
       },
       {
         type: "p",
@@ -278,8 +346,21 @@ const articles: Article[] = [
         text: "Aliiibi : le tiers inattendu",
       },
       {
-        type: "p",
-        text: "Aliiibi démarre en 90 secondes. Un seul iPhone suffit — pas de TV, pas de configuration réseau, pas d'application à installer sur plusieurs téléphones. Chaque joueur prend l'iPhone à tour de rôle pour sélectionner ses musiques depuis Apple Music, puis le téléphone est posé sur la table.",
+        type: "p-rich",
+        segments: [
+          "Aliiibi démarre en 90 secondes. Un seul iPhone suffit — pas de TV, pas de configuration réseau. Chaque joueur prend l'iPhone à tour de rôle pour sélectionner ses musiques depuis ",
+          {
+            text: "Apple Music",
+            href: "https://www.apple.com/fr/apple-music/",
+            external: true,
+          },
+          ", puis le téléphone est posé sur la table. L'option idéale si vous avez ",
+          {
+            text: "des goûts musicaux très différents autour de la table",
+            href: "/blog/blind-test-gouts-incompatibles",
+          },
+          " — le jeu est conçu exactement pour ça.",
+        ],
       },
       {
         type: "p",
@@ -299,7 +380,7 @@ const articles: Article[] = [
           ["Équipement", "Enceinte + ordi", "TV + console + smartphones", "1 seul iPhone"],
           ["Fonctionne hors ligne", "Oui", "Non", "Oui"],
           ["iOS uniquement", "Non", "Non", "Oui"],
-          ["Implication des joueurs", "Passive", "Moyenne", "Totale (chacun a mis des titres)"],
+          ["Implication des joueurs", "Passive", "Moyenne", "Totale"],
         ],
       },
       {
@@ -315,6 +396,17 @@ const articles: Article[] = [
           "Apéro improvisé → Aliiibi (90 secondes de setup, pas de préparation)",
           "Soirée avec des références très spécifiques au groupe → Blind test maison",
           "Budget serré → Aliiibi gratuit ou blind test maison",
+        ],
+      },
+      {
+        type: "p-rich",
+        segments: [
+          "Pour les parties à 5 joueurs et plus, le ",
+          {
+            text: "Mode Infiltré d'Aliiibi+",
+            href: "/blog/mode-infiltre-explique",
+          },
+          " ajoute une dimension stratégique absente des deux autres options : des rôles secrets qui transforment chaque révélation en moment de trahison potentielle.",
         ],
       },
     ],
@@ -339,6 +431,11 @@ const articles: Article[] = [
         q: "Le blind test maison est-il vraiment gratuit ?",
         a: "Oui en termes d'argent, mais il faut compter 1 à 2h de préparation pour l'organisateur, qui ne jouera pas vraiment pendant la soirée.",
       },
+    ],
+    related: [
+      "blind-test-gouts-incompatibles",
+      "mode-infiltre-explique",
+      "7-types-de-joueurs-blind-test",
     ],
   },
 
@@ -389,8 +486,21 @@ const articles: Article[] = [
         text: "Les rôles du Mode Infiltré (Aliiibi+)",
       },
       {
-        type: "p",
-        text: "Le Mode Infiltré est disponible avec Aliiibi+, l'extension à 4,99 € (achat unique). Il ajoute des rôles secrets distribués en début de partie. Chaque rôle modifie votre objectif, transformant le blind test en jeu de rôle et de trahison. Jusqu'à 8 rôles différents selon la configuration.",
+        type: "p-rich",
+        segments: [
+          "Le ",
+          {
+            text: "Mode Infiltré",
+            href: "/blog/mode-infiltre-explique",
+          },
+          " est disponible avec Aliiibi+, l'extension à 4,99 € (achat unique). Il ajoute des rôles secrets distribués en début de partie, transformant le blind test en jeu de rôle et de trahison. La mécanique s'inspire du ",
+          {
+            text: "Loup-Garou de Thiercelieux",
+            href: "https://fr.wikipedia.org/wiki/Loup-Garou_de_Thiercelieux",
+            external: true,
+          },
+          " — mais appliquée à la musique. Jusqu'à 8 rôles différents selon la configuration.",
+        ],
       },
       {
         type: "ul",
@@ -409,10 +519,27 @@ const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Sélection secrète — Phase d'ouverture de chaque partie où chaque joueur choisit ses titres à tour de rôle sur l'iPhone. Les autres joueurs ne voient pas les choix. C'est là que tout se joue strategiquement.",
+          "Sélection secrète — Phase d'ouverture de chaque partie où chaque joueur choisit ses titres à tour de rôle sur l'iPhone. Les autres joueurs ne voient pas les choix. C'est là que tout se joue stratégiquement.",
           "Révélation — Moment à la fin de la lecture de chaque morceau où l'app révèle quel joueur avait mis ce titre. Déclenche l'attribution des titres et des points.",
           "Manche — Un cycle complet : sélection secrète + écoute de tous les titres + révélations + attribution des titres et points. Une partie peut contenir plusieurs manches.",
           "Aliiibi+ — Extension premium d'Aliiibi. Achat unique à 4,99 €. Débloque : jusqu'à 8 joueurs (vs 4 en gratuit), jusqu'à 6 morceaux par joueur (vs 4), le Mode Infiltré avec rôles secrets, et l'historique des parties.",
+        ],
+      },
+      {
+        type: "p-rich",
+        segments: [
+          "La diffusion musicale repose sur ",
+          {
+            text: "Apple MusicKit",
+            href: "https://developer.apple.com/musickit/",
+            external: true,
+          },
+          " — le framework Apple qui permet à des applications tierces d'accéder à la bibliothèque Apple Music de l'utilisateur. Pour comprendre comment chacun de ces titres se comporte en jeu, consultez notre guide des ",
+          {
+            text: "7 types de joueurs au blind test",
+            href: "/blog/7-types-de-joueurs-blind-test",
+          },
+          ".",
         ],
       },
     ],
@@ -438,6 +565,11 @@ const articles: Article[] = [
         a: "Non, le Mode Infiltré est exclusif à Aliiibi+, l'extension à 4,99 € (achat unique, pas d'abonnement).",
       },
     ],
+    related: [
+      "mode-infiltre-explique",
+      "7-types-de-joueurs-blind-test",
+      "comment-bluffer-au-blind-test",
+    ],
   },
 
   // ── PRÉSENTATION ─────────────────────────────────────────
@@ -447,7 +579,8 @@ const articles: Article[] = [
     readTime: "3 min",
     tag: "Présentation",
     title: "Aliiibi, c'est quoi exactement ?",
-    metaTitle: "C'est quoi Aliiibi ? Le blind test musical qui détruit des amitiés",
+    metaTitle:
+      "C'est quoi Aliiibi ? Le blind test musical qui détruit des amitiés",
     metaDescription:
       "Aliiibi est un jeu de soirée blind-test musical multijoueur sur iPhone. Chaque joueur choisit ses musiques en secret. Les autres doivent le démasquer. Présentation complète.",
     keywords: [
@@ -466,8 +599,16 @@ const articles: Article[] = [
         text: "Le principe en 30 secondes",
       },
       {
-        type: "p",
-        text: "Chaque joueur sélectionne en secret ses propres musiques depuis Apple Music — 4 titres en version gratuite, jusqu'à 6 avec Aliiibi+. Personne ne voit les choix des autres. Puis une playlist commune démarre, dans un ordre aléatoire.",
+        type: "p-rich",
+        segments: [
+          "Chaque joueur sélectionne en secret ses propres musiques depuis ",
+          {
+            text: "Apple Music",
+            href: "https://www.apple.com/fr/apple-music/",
+            external: true,
+          },
+          " — 4 titres en version gratuite, jusqu'à 6 avec Aliiibi+. Personne ne voit les choix des autres. Puis une playlist commune démarre, dans un ordre aléatoire.",
+        ],
       },
       {
         type: "p",
@@ -478,8 +619,15 @@ const articles: Article[] = [
         text: "La révélation et les titres",
       },
       {
-        type: "p",
-        text: "En fin de manche, les masques tombent. L'app révèle qui avait mis chaque titre. Les scores s'affichent. Des titres sont attribués automatiquement selon la performance de chaque joueur : L'Insaisissable (+20 pts) si personne ne t'a deviné, La Honte Suprême (−10 pts) si tout le monde t'a vu venir, Le Fin Limier (+30 pts) si tu as trouvé seul ce que les autres ont raté.",
+        type: "p-rich",
+        segments: [
+          "En fin de manche, les masques tombent. L'app révèle qui avait mis chaque titre. Les scores s'affichent. Des titres sont attribués automatiquement — ",
+          {
+            text: "L'Insaisissable, La Honte Suprême, Le Fin Limier, L'Oreille Absolue",
+            href: "/blog/glossaire-aliiibi",
+          },
+          " — chacun avec ses points et sa définition. Des bonus de fin de partie récompensent les meilleurs bluffeurs et enquêteurs.",
+        ],
       },
       {
         type: "h2",
@@ -499,8 +647,15 @@ const articles: Article[] = [
         text: "Gratuit ou Aliiibi+ ?",
       },
       {
-        type: "p",
-        text: "La version gratuite supporte jusqu'à 4 joueurs avec 4 morceaux chacun. Aliiibi+ est un achat unique à 4,99 € qui monte à 8 joueurs, 6 morceaux par joueur, débloque le Mode Infiltré avec des rôles secrets, et donne accès à l'historique des parties.",
+        type: "p-rich",
+        segments: [
+          "La version gratuite supporte jusqu'à 4 joueurs avec 4 morceaux chacun. Aliiibi+ est un achat unique à 4,99 € qui monte à 8 joueurs, 6 morceaux par joueur, débloque le ",
+          {
+            text: "Mode Infiltré avec des rôles secrets",
+            href: "/blog/mode-infiltre-explique",
+          },
+          " et donne accès à l'historique des parties.",
+        ],
       },
     ],
     faq: [
@@ -521,6 +676,11 @@ const articles: Article[] = [
         a: "De 20 à 45 minutes selon le nombre de joueurs et le nombre de morceaux par joueur.",
       },
     ],
+    related: [
+      "blind-test-gouts-incompatibles",
+      "glossaire-aliiibi",
+      "mode-infiltre-explique",
+    ],
   },
 
   // ── BLUFF ─────────────────────────────────────────────────
@@ -530,7 +690,8 @@ const articles: Article[] = [
     readTime: "4 min",
     tag: "Stratégie",
     title: "Comment bien bluffer au blind test Aliiibi",
-    metaTitle: "Bluffer au blind test Aliiibi : 5 techniques pour rester insaisissable",
+    metaTitle:
+      "Bluffer au blind test Aliiibi : 5 techniques pour rester insaisissable",
     metaDescription:
       "Être discret ne suffit pas. Voici les vraies techniques pour bluffer efficacement dans Aliiibi : sélection, accusations, langage corporel et couverture.",
     keywords: [
@@ -557,8 +718,15 @@ const articles: Article[] = [
         text: "Technique 2 : observer avant d'accuser",
       },
       {
-        type: "p",
-        text: "Pendant que les morceaux passent, regardez qui sourit imperceptiblement, qui grimace, qui se raidit légèrement. Ces informations valent autant que votre propre stratégie. Les meilleurs joueurs d'Aliiibi consacrent 70% de leur attention aux autres joueurs, 30% à la musique.",
+        type: "p-rich",
+        segments: [
+          "Pendant que les morceaux passent, regardez qui sourit imperceptiblement, qui grimace, qui se raidit légèrement. Ces informations valent autant que votre propre stratégie. Les meilleurs joueurs d'Aliiibi consacrent 70% de leur attention aux autres joueurs, 30% à la musique. Pour aller plus loin, notre guide des ",
+          {
+            text: "7 types de joueurs au blind test",
+            href: "/blog/7-types-de-joueurs-blind-test",
+          },
+          " détaille les tells spécifiques de chaque profil.",
+        ],
       },
       {
         type: "h2",
@@ -581,8 +749,20 @@ const articles: Article[] = [
         text: "Technique 5 : le silence stratégique",
       },
       {
-        type: "p",
-        text: "Ne défendez pas chaque morceau. Les joueurs qui argumentent trop souvent sur 'c'est vraiment pas moi ça' finissent toujours par se griller. Rester calme et observer est parfois la meilleure position. Le titre L'Insaisissable (+20 pts) récompense ceux que personne ne démasque — pas ceux qui ont le plus parlé.",
+        type: "p-rich",
+        segments: [
+          "Ne défendez pas chaque morceau. Les joueurs qui argumentent trop souvent sur 'c'est vraiment pas moi ça' finissent toujours par se griller. Rester calme et observer est parfois la meilleure position. Le titre ",
+          {
+            text: "L'Insaisissable (+20 pts)",
+            href: "/blog/glossaire-aliiibi",
+          },
+          " récompense ceux que personne ne démasque — pas ceux qui ont le plus parlé. Pour comprendre les mécanismes psychologiques derrière le bluff musical, notre article sur la ",
+          {
+            text: "psychologie du bluff dans Aliiibi",
+            href: "/blog/psychologie-bluff-musical",
+          },
+          " va plus loin.",
+        ],
       },
     ],
     faq: [
@@ -602,6 +782,11 @@ const articles: Article[] = [
         q: "Comment éviter de se trahir quand son propre morceau passe ?",
         a: "Maintenir une expression neutre constante dès le début de la partie — y compris pour les morceaux des autres. Si vous restez impassible tout le temps, votre impassibilité ne révèle rien quand vient votre tour.",
       },
+    ],
+    related: [
+      "7-types-de-joueurs-blind-test",
+      "psychologie-bluff-musical",
+      "glossaire-aliiibi",
     ],
   },
 
@@ -632,8 +817,16 @@ const articles: Article[] = [
         text: "Comment fonctionne le Mode Infiltré",
       },
       {
-        type: "p",
-        text: "Au début de la partie, chaque joueur reçoit un rôle secret sur l'iPhone — discrètement, à l'abri des regards. Ces rôles modifient les objectifs de chacun pendant toute la partie. Certains joueurs doivent passer inaperçus. D'autres doivent démasquer une cible précise. D'autres encore cherchent à créer de la confusion parmi le groupe.",
+        type: "p-rich",
+        segments: [
+          "Au début de la partie, chaque joueur reçoit un rôle secret sur l'iPhone — discrètement, à l'abri des regards. Le principe s'inspire directement des jeux à rôles cachés comme le ",
+          {
+            text: "Loup-Garou de Thiercelieux",
+            href: "https://fr.wikipedia.org/wiki/Loup-Garou_de_Thiercelieux",
+            external: true,
+          },
+          ", mais transposé dans un contexte de blind test musical. Ces rôles modifient les objectifs de chacun pendant toute la partie.",
+        ],
       },
       {
         type: "p",
@@ -654,12 +847,30 @@ const articles: Article[] = [
         ],
       },
       {
+        type: "p-rich",
+        segments: [
+          "La ",
+          {
+            text: "définition complète de chaque rôle et ses points associés",
+            href: "/blog/glossaire-aliiibi",
+          },
+          " est disponible dans le glossaire Aliiibi.",
+        ],
+      },
+      {
         type: "h2",
         text: "Stratégies pour chaque rôle",
       },
       {
-        type: "p",
-        text: "Si votre rôle est de passer inaperçu : choisissez des musiques neutres que plusieurs personnes du groupe pourraient avoir mises. Évitez vos titres signature. Surtout, ne défendez pas trop activement vos choix — ça attire l'attention.",
+        type: "p-rich",
+        segments: [
+          "Si votre rôle est de passer inaperçu : choisissez des musiques neutres que plusieurs personnes du groupe pourraient avoir mises. Évitez vos titres signature. Les ",
+          {
+            text: "techniques de bluff avancées",
+            href: "/blog/comment-bluffer-au-blind-test",
+          },
+          " s'appliquent directement ici — notamment la couverture cohérente et le silence stratégique.",
+        ],
       },
       {
         type: "p",
@@ -674,8 +885,15 @@ const articles: Article[] = [
         text: "Pourquoi le Mode Infiltré change tout",
       },
       {
-        type: "p",
-        text: "Dans le blind test standard, le méta-jeu est relativement linéaire : deviner qui a mis quoi. Dans le Mode Infiltré, il y a un deuxième niveau : deviner non seulement les auteurs des titres, mais aussi les objectifs cachés de chaque joueur. Une partie à 8 joueurs avec Mode Infiltré peut facilement durer 45 minutes à 1h, avec une intensité croissante à chaque révélation.",
+        type: "p-rich",
+        segments: [
+          "Dans le blind test standard, le méta-jeu est relativement linéaire : deviner qui a mis quoi. Dans le Mode Infiltré, il y a un deuxième niveau : deviner non seulement les auteurs des titres, mais aussi les objectifs cachés de chaque joueur. Connaître les ",
+          {
+            text: "7 types de joueurs qui existent dans Aliiibi",
+            href: "/blog/7-types-de-joueurs-blind-test",
+          },
+          " vous aide à identifier rapidement les rôles probables dès les premiers morceaux. Une partie à 8 joueurs avec Mode Infiltré peut facilement durer 45 minutes à 1h, avec une intensité croissante à chaque révélation.",
+        ],
       },
     ],
     faq: [
@@ -699,6 +917,11 @@ const articles: Article[] = [
         q: "Peut-on combiner le Mode Infiltré avec des goûts musicaux très différents ?",
         a: "Oui — c'est même recommandé. La diversité des goûts musicaux autour de la table rend l'identification des rôles encore plus difficile, car les patterns de sélection deviennent plus complexes à analyser.",
       },
+    ],
+    related: [
+      "glossaire-aliiibi",
+      "comment-bluffer-au-blind-test",
+      "7-types-de-joueurs-blind-test",
     ],
   },
 
@@ -731,20 +954,35 @@ const articles: Article[] = [
         text: "Ce que vos playlists révèlent sur vous",
       },
       {
-        type: "p",
-        text: "Les études en psychologie musicale montrent que les préférences musicales sont liées à des traits de personnalité relativement stables. Les fans de musique complexe (jazz, classique, métal progressif) scorent plus haut sur l'ouverture à l'expérience. Les fans de musique énergique et rythmique (pop, electro) tendent vers l'extraversion. Les fans de musique douce et introspective (folk, singer-songwriter) vers l'agréabilité.",
+        type: "p-rich",
+        segments: [
+          "Les recherches en ",
+          {
+            text: "psychologie de la musique",
+            href: "https://fr.wikipedia.org/wiki/Psychologie_de_la_musique",
+            external: true,
+          },
+          " montrent que les préférences musicales sont liées à des traits de personnalité relativement stables. Les fans de musique complexe (jazz, classique, métal progressif) scorent plus haut sur l'ouverture à l'expérience. Les fans de musique énergique et rythmique (pop, electro) tendent vers l'extraversion. Vos amis proches ont une intuition de tout ça — même sans l'avoir formalisé.",
+        ],
       },
       {
         type: "p",
-        text: "Vos amis proches ont une intuition de tout ça — même sans l'avoir formalisé. C'est pourquoi Aliiibi fonctionne mieux avec des gens qui se connaissent bien. La partie révèle non pas vos goûts musicaux objectifs, mais l'image que les autres ont de votre personnalité musicale. Ces deux choses sont rarement identiques.",
+        text: "C'est pourquoi Aliiibi fonctionne mieux avec des gens qui se connaissent bien. La partie révèle non pas vos goûts musicaux objectifs, mais l'image que les autres ont de votre personnalité musicale. Ces deux choses sont rarement identiques.",
       },
       {
         type: "h2",
         text: "La stratégie de la Honte Suprême",
       },
       {
-        type: "p",
-        text: "Dans Aliiibi, la Honte Suprême (−10 pts) est attribuée au joueur que tout le groupe a deviné. C'est la punition la plus visible. Logiquement, personne ne veut l'avoir.",
+        type: "p-rich",
+        segments: [
+          "Dans Aliiibi, la ",
+          {
+            text: "Honte Suprême (−10 pts)",
+            href: "/blog/glossaire-aliiibi",
+          },
+          " est attribuée au joueur que tout le groupe a deviné. C'est la punition la plus visible. Logiquement, personne ne veut l'avoir.",
+        ],
       },
       {
         type: "p",
@@ -771,8 +1009,20 @@ const articles: Article[] = [
         text: "L'identité musicale vs la musique réelle",
       },
       {
-        type: "p",
-        text: "Aliiibi met en évidence une distinction que la plupart des gens n'ont jamais conscientisée : votre goût musical réel (ce que vous écoutez seul, dans les écouteurs, sans personne pour vous juger) est très différent de votre identité musicale (l'image que vous projetez à travers votre playlist). Le jeu exploite l'écart entre les deux.",
+        type: "p-rich",
+        segments: [
+          "Aliiibi met en évidence une distinction que la plupart des gens n'ont jamais conscientisée : votre goût musical réel (ce que vous écoutez seul, dans les écouteurs) est très différent de votre identité musicale (l'image que vous projetez). Le jeu exploite l'écart entre les deux. Pour transformer cette connaissance en victoires concrètes, notre guide sur ",
+          {
+            text: "comment bluffer efficacement au blind test",
+            href: "/blog/comment-bluffer-au-blind-test",
+          },
+          " détaille 5 techniques directement actionnables. Et si vous voulez identifier les profils des autres joueurs avant même qu'ils ouvrent la bouche, le guide des ",
+          {
+            text: "7 types de joueurs au blind test",
+            href: "/blog/7-types-de-joueurs-blind-test",
+          },
+          " est le bon point de départ.",
+        ],
       },
     ],
     faq: [
@@ -792,6 +1042,11 @@ const articles: Article[] = [
         q: "Aliiibi révèle-t-il vraiment la personnalité des joueurs ?",
         a: "Il révèle surtout l'image que les autres joueurs ont de votre personnalité musicale — ce qui est différent de votre goût réel. L'écart entre les deux est souvent la révélation la plus intéressante d'une partie.",
       },
+    ],
+    related: [
+      "comment-bluffer-au-blind-test",
+      "glossaire-aliiibi",
+      "7-types-de-joueurs-blind-test",
     ],
   },
 ];
