@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import AppStoreBadge from "./AppStoreBadge";
 import { HERO } from "@/lib/content";
 
@@ -165,6 +166,16 @@ export default function Hero() {
           "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(157,159,229,.12) 0%, transparent 70%)",
       }}
     >
+      {/* Blog nav link — top right */}
+      <div className="absolute top-6 right-6 z-20">
+        <Link
+          href="/blog"
+          className="text-sm font-medium transition-colors hover:text-white"
+          style={{ color: "#8E8E93" }}
+        >
+          Blog
+        </Link>
+      </div>
       {/* Background radial blobs */}
       <div
         aria-hidden="true"
