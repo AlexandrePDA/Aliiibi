@@ -116,7 +116,7 @@ const jsonLd = {
   },
   potentialAction: {
     "@type": "DownloadAction",
-    target: "https://apps.apple.com",
+    target: "https://apps.apple.com/fr/app/aliiibi-jeu-dambiance/id6761992576?l=en-GB",
   },
 };
 

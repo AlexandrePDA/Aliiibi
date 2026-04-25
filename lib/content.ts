@@ -20,7 +20,7 @@ export const HERO = {
   ],
   taglineAccentWord: "détruit", // index 3 in Swift, bold+accent color
   ctaLabel: "Télécharger sur l'App Store",
-  ctaUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
+  ctaUrl: "https://apps.apple.com/fr/app/aliiibi-jeu-dambiance/id6761992576?l=en-GB",
 };
 
 export const CONCEPT = {
@@ -136,7 +136,7 @@ export const MODE_INFILTRE = {
   price: "4,99€",
   priceNote: "Achat unique · À vie",
   cta: "Télécharger gratuitement",
-  ctaUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
+  ctaUrl: "https://apps.apple.com/fr/app/aliiibi-jeu-dambiance/id6761992576?l=en-GB",
 };
 
 export const FOOTER = {
@@ -145,5 +145,5 @@ export const FOOTER = {
     { label: "Politique de confidentialité", href: "/privacy" },
     //{ label: "Support", href: "mailto:support@aliiibi.app" },
   ],
-  appStoreUrl: "https://apps.apple.com", // ⚠️ remplacer par l'URL réelle après publication
+  appStoreUrl: "https://apps.apple.com/fr/app/aliiibi-jeu-dambiance/id6761992576?l=en-GB",
 };
